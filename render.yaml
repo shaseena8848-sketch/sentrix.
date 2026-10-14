@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: sentrix-api
+    runtime: node
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - {key: FRONTEND_ORIGIN, sync: false}
+      - {key: SUPABASE_URL, sync: false}
+      - {key: SUPABASE_PUBLISHABLE_KEY, sync: false}
+      - {key: GOOGLE_SAFE_BROWSING_API_KEY, sync: false}
+      - {key: VIRUSTOTAL_API_KEY, sync: false}
+      - {key: URLHAUS_API_KEY, sync: false}
+      - {key: AI_PROVIDER_API_KEY, sync: false}
+      - {key: AI_PROVIDER_BASE_URL, sync: false}
+      - {key: AI_MODEL, sync: false}

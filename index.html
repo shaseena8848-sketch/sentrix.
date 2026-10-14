@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Sentrix AI — Digital Risk Protection (Prototype)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#070910;--s1:#0d1120;--s2:#121830;--ln:#1f2742;--tx:#f4f6ff;--mu:#8a94b3;--cy:#5ee7ff;--vi:#8b6cff;--cr:#ef4f5f;--hi:#f97b3a;--me:#f5b942;--lo:#4c8dff;--ok:#3ddc97;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden;background-image:radial-gradient(60% 40% at 80% 0,#8b6cff22,transparent),linear-gradient(#ffffff06 1px,transparent 1px),linear-gradient(90deg,#ffffff06 1px,transparent 1px);background-size:auto,56px 56px,56px 56px}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--cy);outline-offset:3px;border-radius:6px}
+.w{max-width:1160px;margin:auto;padding:0 20px}
+section{padding:88px 0}
+h1,h2,h3{line-height:1.1;margin:0;letter-spacing:-.025em}
+h1{font-size:clamp(38px,6vw,72px);font-weight:800}h2{font-size:clamp(28px,4vw,44px);font-weight:700}h3{font-size:19px}
+.g{background:linear-gradient(90deg,var(--cy),var(--vi));-webkit-background-clip:text;background-clip:text;color:transparent}
+.mu{color:var(--mu)}.sm{font-size:13px}
+.tag{display:inline-block;font-size:12px;letter-spacing:.14em;color:var(--cy);margin-bottom:14px;font-weight:600}
+.demo{font-size:11px;border:1px solid var(--ln);color:var(--mu);padding:2px 8px;border-radius:99px;white-space:nowrap}
+nav{position:sticky;top:0;z-index:50;background:#070910cc;backdrop-filter:blur(14px);border-bottom:1px solid var(--ln)}
+nav .w{display:flex;align-items:center;gap:26px;height:64px}
+.logo{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.06em}
+nav .links{display:flex;gap:22px;margin-left:auto;font-size:14px;color:var(--mu);align-items:center}
+nav .links a:hover{color:var(--tx)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:10px;border:1px solid var(--ln);background:var(--s2);color:var(--tx);font:600 14px Inter;cursor:pointer;transition:.2s}
+.btn:hover{border-color:var(--cy);transform:translateY(-1px)}
+.btn.p{background:linear-gradient(90deg,#3cc7e6,var(--vi));border:0;box-shadow:0 0 28px #8b6cff55}
+.btn:disabled{opacity:.6;cursor:wait}
+#mb{display:none;background:none;border:1px solid var(--ln);color:var(--tx);min-height:44px;min-width:44px;border-radius:8px;margin-left:auto;font-size:20px}
+.hero{padding:70px 0 40px;position:relative}
+.hero .w{display:grid;grid-template-columns:1.05fr 1fr;gap:30px;align-items:center}
+.hero p.l{font-size:18px;color:var(--mu);max-width:520px;margin:22px 0}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.viz{position:relative;aspect-ratio:1;max-width:560px;width:100%;margin:auto}
+.viz canvas{width:100%;height:100%;display:block}
+.fl{position:absolute;background:#0d1120dd;border:1px solid var(--ln);border-radius:10px;padding:8px 12px;font-size:12px;backdrop-filter:blur(8px)}
+.fl b{display:block;font-size:13px}
+.panel{background:linear-gradient(180deg,var(--s1),#0a0e1c);border:1px solid var(--ln);border-radius:14px;padding:20px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi b{font-size:32px;display:block;letter-spacing:-.02em}
+.two{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--ln)}th{color:var(--mu);font-weight:500;font-size:12px}
+.tw{overflow-x:auto}
+.sev{padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid}
+.Critical{color:var(--cr);border-color:var(--cr)}.High{color:var(--hi);border-color:var(--hi)}.Medium{color:var(--me);border-color:var(--me)}.Low{color:var(--lo);border-color:var(--lo)}
+input,select,textarea{background:#0a0e1c;border:1px solid var(--ln);color:var(--tx);border-radius:10px;min-height:44px;padding:0 12px;font:inherit;width:100%}
+textarea{padding:10px;min-height:70px}
+.sc{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.seg{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.seg label{flex:1;min-width:110px}.seg input{position:absolute;opacity:0;width:1px}
+.seg span{display:flex;justify-content:center;align-items:center;min-height:44px;border:1px solid var(--ln);border-radius:10px;font-size:14px;cursor:pointer}
+.seg input:checked+span{border-color:var(--cy);background:#5ee7ff14;color:var(--cy)}
+.seg input:focus-visible+span{outline:2px solid var(--cy)}
+.steps li{padding:8px 0;color:var(--mu);list-style:none;display:flex;gap:10px}
+.steps li:before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid var(--ln);margin-top:5px;flex:none}
+.steps li.on{color:var(--tx)}.steps li.on:before{border-color:var(--cy);border-top-color:transparent;animation:sp 1s linear infinite}
+.steps li.done{color:var(--tx)}.steps li.done:before{background:var(--ok);border-color:var(--ok)}
+@keyframes sp{to{transform:rotate(360deg)}}
+.score{font-size:64px;font-weight:800;letter-spacing:-.04em}
+.bar{height:8px;background:var(--ln);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;transition:width .9s}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.feat .panel{transition:.25s}.feat .panel:hover{border-color:var(--vi);transform:translateY(-3px)}
+.feat svg{width:34px;height:34px;stroke:var(--cy);fill:none;stroke-width:1.6;margin-bottom:14px}
+.ben{border-top:1px solid var(--ln);margin-top:14px;padding-top:10px;font-size:13px;color:var(--cy)}
+.ws{display:grid;grid-template-columns:170px 1.3fr 1fr;gap:0;border:1px solid var(--ln);border-radius:14px;overflow:hidden;background:var(--s1)}
+.ws>*{padding:16px;min-width:0}
+.side{border-right:1px solid var(--ln);display:flex;flex-direction:column;gap:2px}
+.side button{background:none;border:0;color:var(--mu);text-align:left;min-height:40px;padding:0 10px;border-radius:8px;font:500 14px Inter;cursor:pointer}
+.side button.a{background:var(--s2);color:var(--tx)}
+.main{border-right:1px solid var(--ln)}
+.fil{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:10px}
+tr.r{cursor:pointer}tr.r:hover,tr.r.sel{background:#8b6cff14}
+pre{white-space:pre-wrap;background:#0a0e1c;border:1px solid var(--ln);border-radius:10px;padding:12px;font-size:12px;color:var(--mu)}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+.flow:before{content:"";position:absolute;top:22px;left:5%;right:5%;height:2px;background:linear-gradient(90deg,var(--cy),var(--vi));opacity:.5}
+.flow div{position:relative;padding-top:56px}
+.flow i{position:absolute;top:0;width:46px;height:46px;border-radius:50%;background:var(--bg);border:2px solid var(--cy);display:grid;place-items:center;font-style:normal;font-weight:700;color:var(--cy)}
+.sol{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.sol .panel:nth-child(1),.sol .panel:nth-child(4){grid-column:span 3}.sol .panel:nth-child(2),.sol .panel:nth-child(3),.sol .panel:nth-child(5),.sol .panel:nth-child(6){grid-column:span 2}
+.sol .panel:nth-child(2){grid-column:span 3}.sol .panel:nth-child(3){grid-column:span 3}.sol .panel:nth-child(5){grid-column:span 3}.sol .panel:nth-child(6){grid-column:span 3}
+.price{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.price .hot{border-color:var(--vi);box-shadow:0 0 50px #8b6cff2a}
+.price ul{padding-left:18px;color:var(--mu);font-size:14px;min-height:150px}
+details{border-bottom:1px solid var(--ln);padding:16px 0}summary{cursor:pointer;font-weight:600;min-height:32px}details p{color:var(--mu);margin:10px 0 0}
+.cta{text-align:center;background:radial-gradient(50% 80% at 50% 100%,#8b6cff33,transparent)}
+footer{border-top:1px solid var(--ln);padding:50px 0 30px;background:linear-gradient(180deg,transparent,#8b6cff12)}
+footer .w{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:24px}footer a{display:block;color:var(--mu);font-size:14px;padding:3px 0}
+footer h4{margin:0 0 8px;font-size:13px}
+#toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,120px);background:var(--s2);border:1px solid var(--cy);padding:12px 18px;border-radius:10px;transition:.3s;z-index:99;max-width:90%}
+#toast.s{transform:translate(-50%,0)}
+.hide{display:none!important}
+@media(max-width:900px){.hero .w,.sc,.two,.ws,footer .w{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}.feat,.price{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow:before{display:none}.sol{grid-template-columns:1fr}.sol .panel{grid-column:auto!important}.side{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--ln)}.side button{white-space:nowrap}.main{border-right:0;border-bottom:1px solid var(--ln)}.fil{grid-template-columns:1fr}
+nav .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--bg);padding:16px 20px;border-bottom:1px solid var(--ln);align-items:flex-start}nav .links.o{display:flex}#mb{display:block}section{padding:60px 0}.fl{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style></head><body>
+<nav><div class="w"><a href="#top" class="logo"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="url(#lg)" stroke-width="2"><defs><linearGradient id="lg"><stop stop-color="#5ee7ff"/><stop offset="1" stop-color="#8b6cff"/></linearGradient></defs><path d="M13 2l9 4v7c0 5-4 9-9 11C8 22 4 18 4 13V6z"/><circle cx="13" cy="12" r="3"/></svg>SENTRIX AI</a>
+<button id="mb" aria-label="Toggle menu" aria-expanded="false">☰</button>
+<div class="links" id="nl"><a href="#platform">Platform</a><a href="#solutions">Solutions</a><a href="#intel">Threat Intelligence</a><a href="#how">How It Works</a><a href="#faq">Resources</a><a href="#faq">Sign In</a><a class="btn p" href="#cta" data-toast="Demo request form is a prototype: no data was sent.">Request a Demo</a></div></div></nav>
+
+<header class="hero" id="top"><div class="w"><div>
+<span class="tag">AI-POWERED DIGITAL RISK INTELLIGENCE</span>
+<h1>Your Brand Deserves to Exist <span class="g">Without Threats.</span></h1>
+<p class="l">Detect impersonation, expose fraudulent accounts, and identify malicious applications before they damage your brand or compromise your customers. One intelligent platform. Complete digital visibility.</p>
+<div class="row"><a class="btn p" href="#dash">Explore the Platform</a><a class="btn" href="#how">See How It Works</a></div>
+<p class="mu sm" style="margin-top:22px">Continuous monitoring. Intelligent detection. Actionable intelligence.<br>Frontend prototype: all data on this page is simulated sample data.</p></div>
+<div class="viz"><canvas id="cv" role="img" aria-label="Animated simulated threat network"></canvas>
+<div class="fl" style="top:6%;left:0"><b>Lookalike account flagged</b><span class="mu">Simulated · <span class="clk">--:--:--</span> UTC</span></div>
+<div class="fl" style="bottom:10%;right:0"><b>Phishing URL queued</b><span class="mu">Simulated · risk 82</span></div>
+<div class="fl" style="bottom:2%;left:6%"><span class="demo">Demo visualization, not live data</span></div></div></div></header>
+
+<section id="dash"><div class="w"><span class="tag">COMMAND CENTER <span class="demo">demo data</span></span>
+<h2>See the Threats Others Miss.</h2><p class="mu" style="max-width:600px">A preview of the analyst console: sample metrics, trends, and a searchable queue.</p><br>
+<div class="grid4"><div class="panel kpi"><span class="mu sm">Assets monitored</span><b data-n="1284">0</b></div><div class="panel kpi"><span class="mu sm">Impersonation candidates</span><b data-n="47">0</b></div><div class="panel kpi"><span class="mu sm">Suspicious apps</span><b data-n="12">0</b></div><div class="panel kpi"><span class="mu sm">Awaiting review</span><b data-n="9">0</b></div></div>
+<div class="two"><div class="panel"><b>Threat activity, last 12 weeks</b> <span class="demo">illustrative</span><div id="line"></div></div><div class="panel"><b>Severity distribution</b> <span class="demo">illustrative</span><div id="donut"></div></div></div>
+<div class="two"><div class="panel"><b>Recent detections</b> <span class="demo">sample</span><div class="tw"><table id="rec"></table></div></div><div class="panel"><b>Platform distribution</b> <span class="demo">illustrative</span><div id="plat"></div></div></div></div></section>
+
+<section id="scanner"><div class="w"><div class="panel" style="padding:32px"><span class="tag">INTERACTIVE SCANNER <span class="demo">simulated</span></span>
+<h2>Investigate a Digital Threat.</h2><p class="mu">Explore how AI-assisted analysis can uncover suspicious patterns across digital assets.</p>
+<div class="sc"><form id="sf" novalidate><label for="q" class="sm mu">Profile URL, app name, or suspicious URL</label><input id="q" placeholder="e.g. @acme-support-help or acme-login.example" autocomplete="off"><div class="seg" role="radiogroup" aria-label="Asset type"><label><input type="radio" name="t" value="Social Profile" checked><span>Social Profile</span></label><label><input type="radio" name="t" value="Website / URL"><span>Website / URL</span></label><label><input type="radio" name="t" value="Mobile Application"><span>Mobile App</span></label></div>
+<label for="br" class="sm mu">Protected brand name (optional)</label><input id="br" placeholder="Acme" autocomplete="off"><p id="er" class="sm" style="color:var(--cr);min-height:22px" role="alert"></p>
+<button class="btn p" id="go" type="submit">Analyze Threat</button>
+<p class="sm mu">This is a deterministic demo analyzer using text rules only. It does not contact social networks, app stores, or threat feeds, and cannot verify ownership.</p></form>
+<div id="res" aria-live="polite"><ol class="steps" id="st"><li>Inspecting submitted information</li><li>Evaluating impersonation indicators</li><li>Checking suspicious patterns</li><li>Preparing a risk assessment</li></ol><div id="out" class="mu">Results will appear here.</div></div></div></div></div></section>
+
+<section id="platform"><div class="w"><span class="tag">PLATFORM CAPABILITIES</span><h2>Six disciplines. One evidence trail.</h2><br><div class="feat" id="feat"></div></div></section>
+
+<section id="ws"><div class="w"><span class="tag">INVESTIGATION WORKSPACE <span class="demo">prototype · saved in your browser</span></span><h2>From alert to incident report.</h2><br>
+<div class="ws"><div class="side" id="sd"></div><div class="main"><div class="fil"><input id="fq" placeholder="Search threats" aria-label="Search threats"><select id="fs" aria-label="Severity"><option value="">All severities</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select><select id="ft" aria-label="Asset type"><option value="">All types</option><option>Social</option><option>App</option><option>URL</option></select></div><div class="tw"><table id="wt"></table></div><p id="we" class="mu hide">No threats match these filters. Clear a filter to see the queue.</p></div>
+<div id="dt"><p class="mu">Select a threat to see indicators, update status, and add notes.</p></div></div></div></section>
+
+<section id="how"><div class="w"><span class="tag">HOW IT WORKS</span><h2>A workflow analysts can follow.</h2><br><div class="flow"><div><i>1</i><h3>Discover</h3><p class="mu">Identify digital assets and supported sources to monitor.</p></div><div><i>2</i><h3>Detect</h3><p class="mu">Analyze available signals for potential impersonation, scams, and brand abuse.</p></div><div><i>3</i><h3>Investigate</h3><p class="mu">Review evidence, explanations, and risk indicators in one workspace.</p></div><div><i>4</i><h3>Respond</h3><p class="mu">Prioritize incidents, document findings, and coordinate remediation.</p></div></div></div></section>
+
+<section id="solutions"><div class="w"><span class="tag">SOLUTIONS</span><h2>Built around how each team is targeted.</h2><br><div class="sol">
+<div class="panel"><h3>Banking and financial services</h3><p class="mu">Fake support handles ask customers for credentials. Workflow: watch for lookalike handles, review evidence, document for fraud teams.</p></div>
+<div class="panel"><h3>E-commerce and retail</h3><p class="mu">Cloned storefronts reuse product imagery. Workflow: flag lookalike domains and misused assets, then queue for review.</p></div>
+<div class="panel"><h3>Technology companies</h3><p class="mu">Unofficial apps borrow product names and icons. Workflow: compare publisher identity and permissions against your official listings.</p></div>
+<div class="panel"><h3>Consumer brands</h3><p class="mu">Giveaway scams hijack campaign identities. Workflow: track campaign names and escalate suspicious accounts.</p></div>
+<div class="panel"><h3>Media and entertainment</h3><p class="mu">Fake ticket and fan accounts spread fast. Workflow: prioritise by severity around launches and events.</p></div>
+<div class="panel"><h3>Enterprises and security teams</h3><p class="mu">Many signals, few analysts. Workflow: one queue, explained scores, audit trail, structured reports.</p></div></div></div></section>
+
+<section id="intel"><div class="w"><span class="tag">THREAT INTELLIGENCE <span class="demo">all datasets illustrative</span></span><h2>Patterns, not panic.</h2><p class="mu">Sample visuals only. They do not represent real attacks or a real monitoring network.</p><br><div class="two"><div class="panel"><b>Investigation outcomes</b><div id="oc"></div></div><div class="panel"><b>Simulated network map</b><svg id="map" viewBox="0 0 300 200" width="100%" role="img" aria-label="Simulated network"></svg></div></div></div></section>
+
+<section id="trust"><div class="w"><span class="tag">TRUST, PRIVACY AND SECURITY</span><h2>Honest about what it can and cannot do.</h2><br><div class="feat" id="tr"></div></div></section>
+
+<section id="pricing"><div class="w"><span class="tag">PRICING <span class="demo">illustrative</span></span><h2>Start small. Scale the workflow.</h2><br><div class="price">
+<div class="panel"><h3>Starter</h3><p class="mu">Small brands beginning digital risk monitoring.</p><b style="font-size:30px">$—</b> <span class="mu sm">illustrative</span><ul><li>Manual scanner</li><li>Case notes</li><li>Basic reports</li></ul><a class="btn" href="#cta" data-toast="Prototype: pricing is illustrative.">Choose Starter</a></div>
+<div class="panel hot"><h3>Growth</h3><p class="mu">Broader monitoring and investigation tools.</p><b style="font-size:30px">Contact Sales</b><ul><li>Everything in Starter</li><li>Investigation workspace</li><li>Priority scoring</li></ul><a class="btn p" href="#cta" data-toast="Prototype: sales contact is not connected.">Talk to Sales</a></div>
+<div class="panel"><h3>Enterprise</h3><p class="mu">Advanced workflows and configurable integrations.</p><b style="font-size:30px">Contact Sales</b><ul><li>Everything in Growth</li><li>Custom integrations (scoped per project)</li><li>Audit trail exports</li></ul><a class="btn" href="#cta" data-toast="Prototype: sales contact is not connected.">Contact Sales</a></div></div>
+<p class="mu sm">Integrations and data sources are not included until connected and agreed.</p></div></section>
+
+<section id="faq"><div class="w" style="max-width:820px"><span class="tag">FAQ</span><h2>Straight answers.</h2><br>
+<details><summary>What is digital risk protection?</summary><p>Finding and handling threats to your brand outside your own network: fake profiles, scam sites, and unofficial apps.</p></details>
+<details><summary>How does AI identify potential impersonation?</summary><p>By comparing signals such as names, handles, imagery and wording against your brand, and explaining why something looks suspicious. It produces leads, not verdicts.</p></details>
+<details><summary>Can the platform monitor multiple social networks?</summary><p>Coverage depends on connected sources, available APIs and permissions. This prototype connects to none.</p></details>
+<details><summary>Does it detect suspicious mobile applications?</summary><p>It is designed to help investigate apps using available evidence. The prototype only evaluates text you type.</p></details>
+<details><summary>Are results verified or AI-generated?</summary><p>AI-assisted results are indicators needing human review. Here, every result is simulated.</p></details>
+<details><summary>Can I integrate my own threat intelligence sources?</summary><p>The scanner is structured around one analyze() function so a backend service can replace it. No integrations ship today.</p></details>
+<details><summary>How is submitted information handled?</summary><p>In this prototype, scanner input stays in your browser. Workspace notes are saved in local storage only.</p></details>
+<details><summary>Does the platform automatically remove fake accounts?</summary><p>No. Takedowns are not implemented. The platform helps you document evidence for reports to platforms or legal teams.</p></details></div></section>
+
+<section class="cta" id="cta"><div class="w"><h2>See the Threat. Understand the Risk. <span class="g">Protect What Matters.</span></h2><p class="mu">Bring clarity to your digital risk landscape with intelligent, evidence-led investigations.</p><br><div class="row" style="justify-content:center"><a class="btn p" href="#scanner">Explore the Demo</a><button class="btn" id="rq">Request a Demo</button></div></div></section>
+
+<footer><div class="w"><div><b class="logo">SENTRIX AI</b><p class="mu sm">Evidence-led digital risk intelligence. Hackathon prototype with simulated data.</p><p class="mu sm">contact@example.com (placeholder)</p></div>
+<div><h4>Platform</h4><a href="#dash">Command center</a><a href="#scanner">Scanner</a><a href="#ws">Workspace</a></div><div><h4>Solutions</h4><a href="#solutions">By industry</a><a href="#how">Workflow</a><a href="#pricing">Pricing</a></div><div><h4>Resources</h4><a href="#faq">FAQ</a><a href="#trust">Trust</a><a href="#top" data-toast="Placeholder page: not part of the prototype.">Privacy Policy</a><a href="#top" data-toast="Placeholder page: not part of the prototype.">Terms of Service</a></div></div>
+<div class="w mu sm" style="display:block;margin-top:24px">© 2026 Sentrix AI prototype. All rights reserved.</div></footer>
+<div id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('s');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('s'),3200)}
+$$('[data-toast]').forEach(a=>a.addEventListener('click',()=>toast(a.dataset.toast)));
+$('#rq').onclick=()=>toast('Prototype: demo requests are not sent anywhere.');
+$('#mb').onclick=()=>{const o=$('#nl').classList.toggle('o');$('#mb').setAttribute('aria-expanded',o)};
+$$('#nl a').forEach(a=>a.addEventListener('click',()=>$('#nl').classList.remove('o')));
+setInterval(()=>$$('.clk').forEach(e=>e.textContent=new Date().toISOString().slice(11,19)),1000);
+// counters
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);const n=+e.target.dataset.n;if(RM){e.target.textContent=n;return}let s=null;const f=t=>{s??=t;const p=Math.min((t-s)/1200,1);e.target.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}));
+$$('[data-n]').forEach(e=>io.observe(e));
+// hero canvas
+(()=>{const c=$('#cv'),x=c.getContext('2d');let W,H,N=[],P=[],a=0;
+const rs=()=>{const r=c.getBoundingClientRect(),d=devicePixelRatio||1;W=c.width=r.width*d;H=c.height=r.height*d};rs();addEventListener('resize',rs);
+let sd=7;const rnd=()=>(sd=sd*16807%2147483647)/2147483647;
+for(let i=0;i<150;i++){const u=rnd()*Math.PI*2,v=Math.acos(2*rnd()-1);N.push([Math.cos(u)*Math.sin(v),Math.sin(u)*Math.sin(v),Math.cos(v)])}
+const pr=(n,r)=>{const ca=Math.cos(a),sa=Math.sin(a),X=n[0]*ca+n[2]*sa,Z=-n[0]*sa+n[2]*ca;return[W/2+X*r,H/2+n[1]*r,Z]};
+function draw(){const r=W*.36;x.clearRect(0,0,W,H);
+const g=x.createRadialGradient(W/2,H/2,r*.2,W/2,H/2,r*1.4);g.addColorStop(0,'#8b6cff30');g.addColorStop(1,'transparent');x.fillStyle=g;x.fillRect(0,0,W,H);
+x.strokeStyle='#5ee7ff22';x.lineWidth=1;[1,1.18,1.36].forEach(k=>{x.beginPath();x.arc(W/2,H/2,r*k,0,7);x.stroke()});
+const q=N.map(n=>pr(n,r));
+for(let i=0;i<q.length;i++)for(let j=i+1;j<q.length;j+=3){const dx=q[i][0]-q[j][0],dy=q[i][1]-q[j][1];if(dx*dx+dy*dy<(r*.22)**2){x.strokeStyle='#8b6cff'+(q[i][2]>0?'40':'15');x.beginPath();x.moveTo(q[i][0],q[i][1]);x.lineTo(q[j][0],q[j][1]);x.stroke()}}
+q.forEach((p,i)=>{x.fillStyle=i%23==0?'#ef4f5f':p[2]>0?'#5ee7ff':'#5ee7ff55';x.beginPath();x.arc(p[0],p[1],(i%23==0?4:2)*devicePixelRatio,0,7);x.fill()});
+if(P.length<4&&Math.random()<.04)P.push({a:Math.floor(Math.random()*150),b:Math.floor(Math.random()*150),t:0});
+P=P.filter(p=>{p.t+=.015;const A=q[p.a],B=q[p.b];x.fillStyle='#fff';x.shadowColor='#5ee7ff';x.shadowBlur=12;x.beginPath();x.arc(A[0]+(B[0]-A[0])*p.t,A[1]+(B[1]-A[1])*p.t,3*devicePixelRatio,0,7);x.fill();x.shadowBlur=0;return p.t<1});
+const sw=a*3;x.strokeStyle='#5ee7ff55';x.beginPath();x.moveTo(W/2,H/2);x.lineTo(W/2+Math.cos(sw)*r*1.36,H/2+Math.sin(sw)*r*1.36);x.stroke();
+x.strokeStyle='#5ee7ff';x.lineWidth=2;x.beginPath();x.arc(W/2,H/2,r*.14,0,7);x.stroke();x.beginPath();x.moveTo(W/2-r*.05,H/2);x.lineTo(W/2,H/2+r*.05);x.lineTo(W/2+r*.07,H/2-r*.05);x.stroke();x.lineWidth=1}
+function loop(){a+=.003;draw();if(!RM)requestAnimationFrame(loop)}draw();if(!RM)loop()})();
+// charts
+const D=[12,18,15,24,31,28,36,33,41,38,47,52],SC={Critical:'#ef4f5f',High:'#f97b3a',Medium:'#f5b942',Low:'#4c8dff'};
+const mx=Math.max(...D);$('#line').innerHTML=`<svg viewBox="0 0 400 150" width="100%"><defs><linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#8b6cff" stop-opacity=".4"/><stop offset="1" stop-color="#8b6cff" stop-opacity="0"/></linearGradient></defs><path fill="url(#a)" d="M0 150 ${D.map((v,i)=>`L${i*36} ${140-v/mx*120}`).join(' ')} L396 150Z"/><path fill="none" stroke="#5ee7ff" stroke-width="2" d="${D.map((v,i)=>(i?'L':'M')+i*36+' '+(140-v/mx*120)).join(' ')}"/>${D.map((v,i)=>`<circle cx="${i*36}" cy="${140-v/mx*120}" r="9" fill="transparent"><title>Week ${i+1}: ${v} sample detections</title></circle>`).join('')}</svg>`;
+const sv={Critical:6,High:14,Medium:19,Low:8};let off=0,tot=47;$('#donut').innerHTML=`<svg viewBox="0 0 42 42" width="170" style="display:block;margin:auto;transform:rotate(-90deg)">${Object.entries(sv).map(([k,v])=>{const d=v/tot*100,s=`<circle cx="21" cy="21" r="15.9" fill="none" stroke="${SC[k]}" stroke-width="5" stroke-dasharray="${d} ${100-d}" stroke-dashoffset="${-off}"><title>${k}: ${v}</title></circle>`;off+=d;return s}).join('')}</svg><div class="sm mu" style="text-align:center">${Object.keys(sv).map(k=>`<span style="color:${SC[k]}">●</span> ${k} ${sv[k]}`).join(' &nbsp; ')}</div>`;
+const bars=(el,o)=>$(el).innerHTML=Object.entries(o).map(([k,v])=>`<div class="sm" style="margin-top:12px">${k} <span class="mu">${v}%</span></div><div class="bar"><i style="width:${v}%;background:linear-gradient(90deg,#5ee7ff,#8b6cff)"></i></div>`).join('');
+bars('#plat',{'Social networks (sample)':46,'Websites / URLs':31,'App stores (sample)':23});bars('#oc',{'Confirmed':38,'Dismissed':24,'Escalated':21,'Pending':17});
+$('#map').innerHTML=Array.from({length:22},(_,i)=>{const x=20+(i*53%260),y=15+(i*37%170);return`<line x1="150" y1="100" x2="${x}" y2="${y}" stroke="#8b6cff" opacity=".35"/><circle cx="${x}" cy="${y}" r="3" fill="${i%7?'#5ee7ff':'#ef4f5f'}"><animate attributeName="opacity" values="1;.3;1" dur="${2+i%3}s" repeatCount="indefinite"/></circle>`}).join('')+'<circle cx="150" cy="100" r="9" fill="#0d1120" stroke="#5ee7ff" stroke-width="2"/>';
+// threats
+let T=[{id:'T-101',n:'Lookalike brand account',ty:'Social',s:'Critical',sc:91,ind:['Handle differs from brand by one character','Bio copies brand tagline','Account age unknown (not verifiable here)']},{id:'T-102',n:'Suspicious social profile',ty:'Social',s:'High',sc:78,ind:['Brand logo reused as avatar','Links to unrelated domain']},{id:'T-103',n:'Phishing URL impersonating a product',ty:'URL',s:'High',sc:82,ind:['Brand name embedded in subdomain','Login form language on landing text']},{id:'T-104',n:'Unverified app using brand assets',ty:'App',s:'Medium',sc:56,ind:['Publisher name differs from official','Icon resembles brand icon']},{id:'T-105',n:'Giveaway scam page',ty:'URL',s:'Medium',sc:49,ind:['Urgency wording','Campaign name reused']},{id:'T-106',n:'Fan page using brand name',ty:'Social',s:'Low',sc:22,ind:['Self-described fan page','No credential requests observed']}];
+const ST=['New','In review','Escalated','Resolved'];let S={};try{S=JSON.parse(localStorage.getItem('sx')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('sx',JSON.stringify(S))}catch(e){}};
+$('#rec').innerHTML=T.slice(0,4).map(t=>`<tr><td>${t.n}</td><td><span class="sev ${t.s}">${t.s}</span></td></tr>`).join('');
+$('#sd').innerHTML=['Overview','Social Threats','Suspicious Apps','Phishing URLs','Investigations','Reports','Settings'].map((n,i)=>`<button class="${i?'':'a'}" data-n="${n}">${n}</button>`).join('');
+const map={'Social Threats':'Social','Suspicious Apps':'App','Phishing URLs':'URL'};
+$$('#sd button').forEach(b=>b.onclick=()=>{$$('#sd button').forEach(x=>x.classList.remove('a'));b.classList.add('a');if(map[b.dataset.n]){$('#ft').value=map[b.dataset.n]}else if(b.dataset.n=='Overview'){$('#ft').value=''}else toast(b.dataset.n+' is outside this prototype. Use the queue and detail panel.');rt()});
+let sel=null;
+function rt(){const q=$('#fq').value.toLowerCase(),s=$('#fs').value,y=$('#ft').value;const L=T.filter(t=>(!q||(t.n+t.id).toLowerCase().includes(q))&&(!s||t.s==s)&&(!y||t.ty==y));
+$('#we').classList.toggle('hide',L.length>0);$('#wt').innerHTML=L.length?'<tr><th>ID</th><th>Threat</th><th>Severity</th><th>Status</th></tr>'+L.map(t=>`<tr class="r ${sel==t.id?'sel':''}" tabindex="0" data-id="${t.id}"><td>${t.id}</td><td>${t.n}</td><td><span class="sev ${t.s}">${t.s}</span></td><td>${(S[t.id]||{}).st||'New'}</td></tr>`).join(''):'';
+$$('#wt tr.r').forEach(r=>{r.onclick=()=>{sel=r.dataset.id;rt();det()};r.onkeydown=e=>{if(e.key=='Enter'){r.click()}}})}
+function det(){const t=T.find(x=>x.id==sel),d=S[sel]||{st:'New',notes:[]};
+$('#dt').innerHTML=`<h3>${t.n}</h3><p class="mu sm">${t.id} · ${t.ty} · risk ${t.sc}/100 <span class="demo">sample</span></p><b class="sm">Indicators</b><ul class="sm mu">${t.ind.map(i=>`<li>${i}</li>`).join('')}</ul><label class="sm mu" for="ss">Status</label><select id="ss">${ST.map(s=>`<option ${s==d.st?'selected':''}>${s}</option>`).join('')}</select><label class="sm mu" for="nt">Add note</label><textarea id="nt"></textarea><div class="row" style="margin-top:8px"><button class="btn" id="an">Save note</button><button class="btn p" id="rp">Preview report</button></div><ul class="sm mu">${d.notes.map(n=>`<li>${n}</li>`).join('')}</ul><pre id="rpt" class="hide"></pre>`;
+$('#ss').onchange=e=>{S[sel]={...d,st:e.target.value};save();rt();toast('Status updated to '+e.target.value)};
+$('#an').onclick=()=>{const v=$('#nt').value.trim();if(!v)return toast('Write a note first.');d.notes.push(v);S[sel]=d;save();det();toast('Note saved locally')};
+$('#rp').onclick=()=>{const r=$('#rpt');r.classList.remove('hide');r.textContent=`INCIDENT REPORT (SAMPLE)\nCase: ${t.id}\nSubject: ${t.n}\nType: ${t.ty}\nSeverity: ${t.s} (${t.sc}/100)\nStatus: ${(S[sel]||d).st}\nIndicators:\n- ${t.ind.join('\n- ')}\nNotes:\n${d.notes.map(n=>'- '+n).join('\n')||'- none'}\nLimitations: simulated data; no live source verification.`}}
+['fq','fs','ft'].forEach(i=>$('#'+i).addEventListener('input',rt));rt();
+// features & trust
+const ic=['<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>','<path d="M4 4h16v16H4z"/><path d="M8 12l3 3 5-6"/>','<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>','<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18"/>','<path d="M3 20V9M9 20V4M15 20v-8M21 20V7"/>','<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>'];
+const F=[['Social Impersonation Detection','Surface lookalike usernames, copied branding, reused profile images and unusual behavior.','Faster triage of fake profiles'],['Brand Abuse Intelligence','Track misuse of names, logos and campaign identities across connected sources.','Earlier visibility into misuse'],['Malicious App Discovery','Investigate misleading publishers, unauthorized branding and risky permissions from available evidence.','Clearer app investigations'],['Phishing & Scam Detection','Analyze suspicious URLs, lookalike domains and misleading landing pages.','Fewer customers reaching scams'],['AI Risk Prioritization','Summarize evidence, explain indicators and assign transparent scores.','Analysts start with what matters'],['Incident Response & Reporting','Organize cases, record evidence, track status and generate structured reports.','Consistent, defensible documentation']];
+$('#feat').innerHTML=F.map((f,i)=>`<div class="panel"><svg viewBox="0 0 24 24">${ic[i]}</svg><h3>${f[0]}</h3><p class="mu">${f[1]}</p><div class="ben">${f[2]}</div></div>`).join('');
+$('#tr').innerHTML=[['Evidence-based assessment','Every score lists the indicators behind it.'],['Human review','Consequential decisions stay with analysts.'],['Stated limitations','Results show what could not be verified.'],['Responsible handling','Collect only what an investigation needs.'],['Secure-by-design principles','Least privilege and no secrets in client code.'],['Audit trails','Status changes and notes are recorded per case.']].map(a=>`<div class="panel"><h3>${a[0]}</h3><p class="mu">${a[1]}</p></div>`).join('');
+// scanner (swap analyze() with a backend call later)
+function analyze(v,type,brand){const l=v.toLowerCase(),b=(brand||'').toLowerCase().trim(),I=[];let s=10;
+const add=(p,t)=>{s+=p;I.push(t)};
+if(b&&l.includes(b)&&!/^(https?:\/\/)?(www\.)?[a-z0-9-]*\./.test(l)||b&&l.includes(b)&&l.replace(/https?:\/\/(www\.)?/,'').split(/[/?]/)[0]!==b+'.com')b&&l.includes(b)&&add(18,'Contains protected brand name alongside other text');
+if(/[0-9]/.test(l)&&/[ol1i]/.test(l)&&b)add(8,'Digit/letter mixes can imitate brand spelling');
+if(/(login|verify|secure|support|help|official|wallet|giveaway|free|claim)/.test(l))add(22,'Trust or urgency keyword in name');
+if(/(-|_){2,}|-.*-.*-/.test(l))add(10,'Multiple hyphens or separators');
+if(/\.(xyz|top|click|zip|work|buzz)(\/|$)/.test(l))add(14,'Domain suffix often used in low-cost registrations');
+if(type=='Mobile Application'&&/(pro|lite|mod|plus|free)/.test(l))add(12,'Variant suffix common in unofficial app names');
+if(type=='Social Profile'&&/@?[a-z]+_?(official|real|support)/.test(l))add(12,'Claims to be official or support');
+s=Math.min(s,95);const c=s>=75?'Critical':s>=55?'High':s>=35?'Medium':'Low';
+return{s,c,I:I.length?I:['No rule-based indicators matched the text']}}
+$('#sf').onsubmit=e=>{e.preventDefault();const v=$('#q').value.trim(),er=$('#er');er.textContent='';
+if(v.length<3){er.textContent='Enter at least 3 characters: a profile URL, app name, or URL.';$('#q').focus();return}
+if(v.length>200||/[<>]/.test(v)){er.textContent='Remove special characters like < or > and keep input under 200 characters.';return}
+const ty=document.querySelector('[name=t]:checked').value,go=$('#go');go.disabled=true;go.textContent='Analyzing…';$('#out').innerHTML='<span class="mu">Working…</span>';
+const li=$$('#st li');li.forEach(x=>x.className='');let i=0;
+const step=()=>{if(i>0)li[i-1].className='done';if(i<4){li[i].className='on';i++;setTimeout(step,RM?60:650)}else{const r=analyze(v,ty,$('#br').value);go.disabled=false;go.textContent='Analyze Threat';
+$('#out').innerHTML=`<div class="sm mu">Simulated assessment for <b>${v.replace(/&/g,'&amp;')}</b> (${ty})</div><div class="score" style="color:${SC[r.c]}">${r.s}<span class="sm mu">/100</span></div><div class="bar"><i id="bf" style="width:0;background:${SC[r.c]}"></i></div><p><span class="sev ${r.c}">${r.c} risk</span></p><b class="sm">Indicators requiring attention (rule-based, illustrative)</b><ul class="sm">${r.I.map(x=>`<li>${x}</li>`).join('')}</ul><b class="sm">Explanation</b><p class="sm mu">Matching text patterns raise the score. A pattern alone does not make an asset malicious; many legitimate assets look similar.</p><b class="sm">Recommended next steps</b><ul class="sm mu"><li>Compare against the official asset manually</li><li>Collect screenshots and URLs as evidence</li><li>Have an analyst review before any report or takedown request</li></ul><p class="sm" style="border:1px solid var(--ln);border-radius:10px;padding:10px"><b>Limitations:</b> nothing was verified. No platform, app store or threat feed was queried; all findings are illustrative, not verified evidence. Confidence: low.</p>`;
+requestAnimationFrame(()=>$('#bf').style.width=r.s+'%');toast('Simulated analysis complete')}};step()};
+</script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="backend.js"></script>
+</body></html>
